@@ -1,0 +1,70 @@
+﻿<Properties StartupConfiguration="{3E5E2D08-916E-41A5-930B-D692574D0933}|API">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Domain/Activity.cs">
+    <Files>
+      <File FileName="Infrastructure/Security/JwtGenerator.cs" Line="20" Column="1" IsPinned="True" />
+      <File FileName="Infrastructure/Security/UserAccessor.cs" Line="16" Column="41" />
+      <File FileName="Infrastructure/Class1.cs" Line="1" Column="1" />
+      <File FileName="Infrastructure/Photos/CloudinarySettings.cs" />
+      <File FileName="Infrastructure/Photos/PhotoAccessor.cs" />
+      <File FileName="Application/User/CurrentUser.cs" Line="28" Column="30" />
+      <File FileName="Application/User/User.cs" Line="5" Column="18" />
+      <File FileName="Application/Profiles/Details.cs" Line="1" Column="1" />
+      <File FileName="Application/Profiles/Edit.cs" Line="1" Column="1" />
+      <File FileName="Application/Profiles/UserActivityDto.cs" Line="15" Column="44" />
+      <File FileName="Application/Profiles/ProfileReader.cs" Line="39" Column="15" />
+      <File FileName="Application/Profiles/Profile.cs" Line="5" Column="1" />
+      <File FileName="API/Controllers/ProfilesController.cs" />
+      <File FileName="API/Controllers/UserController.cs" Line="35" Column="1" />
+      <File FileName="API/Controllers/BaseController.cs" />
+      <File FileName="API/Controllers/ValuesController.cs" />
+      <File FileName="Application/User/Register.cs" Line="88" Column="19" />
+      <File FileName="Domain/Comment.cs" Line="1" Column="1" />
+      <File FileName="Application/Profiles/ListActivities.cs" Line="1" Column="1" />
+      <File FileName="API/Controllers/ActivitiesController.cs" Line="1" Column="1" />
+      <File FileName="Infrastructure/Payment/PaymentService.cs" Line="17" Column="32" />
+      <File FileName="Application/Interfaces/IPaymentService.cs" Line="10" Column="1" />
+      <File FileName="Application/Interfaces/IPhotoAccessor.cs" Line="1" Column="1" />
+      <File FileName="Application/Interfaces/IJwtGenerator.cs" Line="5" Column="35" />
+      <File FileName="Domain/UserActivity.cs" Line="1" Column="1" />
+      <File FileName="Domain/AppUser.cs" Line="1" Column="1" />
+      <File FileName="API/Program.cs" Line="33" Column="18" />
+      <File FileName="API/Startup.cs" Line="147" Column="102" />
+      <File FileName="Application/User/Login.cs" Line="38" Column="100" />
+      <File FileName="Domain/Activity.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Option id="ShowAllFiles" value="True" />
+          <Node name="Reactivities" expanded="True">
+            <Node name="API" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+            <Node name="Application" expanded="True" />
+            <Node name="Domain" expanded="True">
+              <Node name="Activity.cs" selected="True" />
+            </Node>
+            <Node name="Infrastructure" expanded="True">
+              <Node name="Payment" expanded="True" />
+              <Node name="Security" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.API PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/ageorgiou/Projects/ascfed/API/Controllers/ProfilesController.cs" relfile="API/Controllers/ProfilesController.cs" line="20" column="1" />
+      <Breakpoint file="/Users/ageorgiou/Projects/ascfed/API/Controllers/UserController.cs" relfile="API/Controllers/UserController.cs" line="35" column="1" />
+      <Breakpoint file="/Users/ageorgiou/Projects/ascfed/Application/User/Register.cs" relfile="Application/User/Register.cs" line="90" column="1" />
+      <Breakpoint file="/Users/ageorgiou/Projects/ascfed/API/Controllers/UserController.cs" relfile="API/Controllers/UserController.cs" line="41" column="1" />
+      <Breakpoint file="/Users/ageorgiou/Projects/ascfed/Application/User/Register.cs" relfile="Application/User/Register.cs" line="92" column="1" />
+      <Breakpoint file="/Users/ageorgiou/Projects/ascfed/Application/User/Register.cs" relfile="Application/User/Register.cs" line="110" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

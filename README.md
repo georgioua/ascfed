@@ -1,4 +1,4 @@
-Guide to running the source code without first watching the course!
+Guide to running the source code
 ===================================================================
 
 Pre-reqs.   Make sure you have the latest version of dotnet core SDK and at least version 10 of Node installed on your computer.

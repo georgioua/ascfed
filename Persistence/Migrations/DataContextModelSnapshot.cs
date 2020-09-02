@@ -100,6 +100,9 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsPaid")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsRegistered")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("JoiningDate")
                         .HasColumnType("TEXT");
 
@@ -157,6 +160,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Subscribtion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TempPassword")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("TrainingYears")

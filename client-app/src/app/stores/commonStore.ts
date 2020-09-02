@@ -27,11 +27,22 @@ export default class CommonStore {
                 }
             }
         )
+        reaction(
+            () => this.customerId,
+            customerId => {
+                if (customerId) {
+                    window.localStorage.setItem('customerId', customerId);
+                } else {
+                    window.localStorage.removeItem('customerId');
+                }
+            }
+        )
     }
 
     @observable token: string | null = window.localStorage.getItem('jwt');
     @observable refreshToken: string | null = window.localStorage.getItem('refreshToken');
     @observable appLoaded = false;
+    @observable customerId: string | null = window.localStorage.getItem('customerId');
 
     @action setToken = (token: string | null) => {
         this.token = token;
@@ -43,5 +54,9 @@ export default class CommonStore {
 
     @action setAppLoaded = () => {
         this.appLoaded = true;
+    }
+
+    @action setCustomerId = (customerId: string | null) => {
+        this.customerId = customerId;
     }
 }

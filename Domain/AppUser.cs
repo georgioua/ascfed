@@ -40,6 +40,8 @@ namespace Domain
         public string CustomerId { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
+        public bool IsRegistered { get; set; }
+        public string TempPassword { get; set; }
 
     }
 }

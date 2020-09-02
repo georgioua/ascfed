@@ -1,17 +1,22 @@
 import { observable, computed, action, runInAction } from 'mobx';
 import { IUser, IUserFormValues } from '../models/user';
+import {ISingUpFormValues , ISingUp } from '../models/signup';
 import agent from '../api/agent';
 import { RootStore } from './rootStore';
 import { history } from '../..';
+import { IPaymentFormValues } from '../models/payment';
+//import { isPlainObject } from 'mobx-react-lite/dist/utils';
+
 
 export default class UserStore {
   rootStore: RootStore;
   constructor(rootStore: RootStore) {
-    this.rootStore = rootStore;
+    this.rootStore = rootStore;//
   }
 
   @observable user: IUser | null = null;
   @observable loading = false;
+  @observable customer: ISingUp | null = null;
 
   @computed get isLoggedIn() {
     return !!this.user;
@@ -43,6 +48,25 @@ export default class UserStore {
       throw error;
     }
   }
+  @action singnup = async (values: ISingUpFormValues) => {
+    const customer = await agent.User.singup(values);
+    //console.log(customer);
+    this.rootStore.commonStore.setCustomerId(customer.customerId);
+    this.rootStore.modalStore.closeModal();
+    history.push('/prices')
+  } 
+
+  @action payment = async (values: IPaymentFormValues) => {
+    const user = await agent.User.payment(values);
+      //console.log(user);
+      this.rootStore.commonStore.setToken(user.token);
+      this.rootStore.commonStore.setRefreshToken(user.refreshToken);
+      this.rootStore.modalStore.closeModal();
+      runInAction(() => {
+        this.user = user;
+      });
+      history.push('/register')
+  } 
 
   @action getUser = async () => {
     try {

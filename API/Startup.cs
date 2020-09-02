@@ -26,6 +26,7 @@ using Microsoft.IdentityModel.Tokens;
 using Persistence;
 using Stripe;
 using Infrastructure.Payment;
+using System.Collections.Generic;
 namespace API
 {
     public class Startup
@@ -65,7 +66,8 @@ namespace API
         {
             var stripeApiKey = Configuration["Stripe:ApiKey"];
 
-            StripeConfiguration.SetApiKey(stripeApiKey);
+            StripeConfiguration.ApiKey = stripeApiKey;
+           
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -80,7 +82,18 @@ namespace API
             {
                 opt.AddPolicy("CorsPolicy", policy => 
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000").AllowCredentials();
+                    IConfigurationSection myArraySection = Configuration.GetSection("CorsPolicy:Urls");
+                    var itemArray = myArraySection.AsEnumerable();
+                    var values = new List<string>();
+                    foreach (var item in itemArray)
+                    {
+                        if(!string.IsNullOrEmpty(item.Value))
+                            values.Add(item.Value);
+                    }
+
+                    var origins = values.ToArray();
+
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(origins).AllowCredentials();
                 });
             });
             services.AddMediatR(typeof(List.Handler).Assembly);

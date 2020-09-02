@@ -10,7 +10,8 @@ import ErrorMessage from '../../app/common/form/ErrorMessage';
 import SelectInput from '../../app/common/form/SelectInput';
 import { prices } from '../../app/common/options/productOptions';
 import DateInput from '../../app/common/form/DateInput';
-
+import agent from '../../app/api/agent';
+import { dateTime } from 'date-fns/locale/af';
 const validate = combineValidators({
   username: isRequired('Username'),
   displayName: isRequired('DisplayName'),
@@ -21,14 +22,38 @@ const validate = combineValidators({
   city: isRequired('City'),
   state: isRequired('State'),
   country: isRequired('Country'),
-  priceId: isRequired('PriceId')
 });
 
 const RegisterForm = () => {
   const rootStore = useContext(RootStoreContext);
+  let currentUser = rootStore.userStore.user;
+  if(currentUser == null)
+  {
+    agent.User.current().then(user => currentUser = user);
+  }
+  
   const { register } = rootStore.userStore;
+  const userValues: IUserFormValues = {
+      email : currentUser ? currentUser.username : "",
+      password : currentUser ? currentUser.tempPassword : "",
+      displayName :currentUser ? currentUser.displayName : "",
+      username :currentUser ? currentUser.username : "",
+      groupName: "",
+      level: "",
+      trainingYears: "",
+      dob : undefined,
+      addressLine1: "",
+      addressline2: "",
+      city: "",
+      state: "",
+      postcode: "",
+      country: "",
+      customerId: currentUser ? currentUser.customerId : "",
+      phone: ""
+    };
   return (
     <FinalForm
+      initialValues={userValues}
       onSubmit={(values: IUserFormValues) =>
         register(values).catch(error => ({
           [FORM_ERROR]: error
@@ -46,29 +71,34 @@ const RegisterForm = () => {
         <Form onSubmit={handleSubmit} error>
           <Header
             as='h2'
-            content='Sign up to Australian Sports Capoeira Federation'
+            content='Register Australian Sports Capoeira Federation'
             color='teal'
             textAlign='center'
           />
-          <Field name='username' component={TextInput} placeholder='Username' />
+          <Header as='h3' content={currentUser ?  currentUser.customerId : ""}></Header>
+          <p>{currentUser ?  currentUser.username : ""} {currentUser ?  currentUser.tempPassword : ""}</p>
+          <p>{currentUser ?  currentUser.priceId : ""} {currentUser ?  currentUser.subscriptionStatus : ""}</p>
+          <p>subscription {currentUser ?  currentUser.subscription : "subscription"} {currentUser ?  currentUser.isPaid : ""}</p>
+          <Field name='username' value={userValues.username}  component={TextInput} placeholder='Username' />
           <Field
             name='displayName'
+            value={userValues.displayName} 
             component={TextInput}
             placeholder='Display Name'
           />
-          <Field name='email' component={TextInput} placeholder='Email' />
-          <Field name='groupName' component={TextInput} placeholder='Name of group' />
-          <Field name='level' component={TextInput} placeholder='your level / title' />
-          <Field name='trainingYears' component={TextInput} number={true} placeholder='Number of years training' />
+          <Field name='email'   value={userValues.email}  component={TextInput} placeholder='Email' />
+          <Field name='groupName' value={userValues.groupName}   component={TextInput} placeholder='Name of group' />
+          <Field name='level' value={userValues.level}  component={TextInput} placeholder='your level / title' />
+          <Field name='trainingYears' value={userValues.trainingYears} component={TextInput} number={true} placeholder='Number of years training' />
           <Field name='dob' component={DateInput} date={true} placeholder='Date of Birth' />
          
-          <Field name='addressLine1' component={TextInput} placeholder='Address' />
+          <Field name='addressLine1' value={userValues.addressLine1} component={TextInput} placeholder='Address' />
           <Field name='addressLine2' component={TextInput} placeholder='Other Address' />
           <Field name='city' component={TextInput} placeholder='City' />
           <Field name='state' component={TextInput} placeholder='State' />
           <Field name='postcode' component={TextInput} placeholder='Postcode' />
           <Field name='country' component={TextInput} placeholder='Country' />
-          
+          <Field name='Phone' value={userValues.phone}  component={TextInput} placeholder='Telephone Number' />
           <Field
             name='password'
             component={TextInput}

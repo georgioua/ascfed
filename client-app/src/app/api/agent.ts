@@ -4,6 +4,8 @@ import { history } from '../..';
 import { toast } from 'react-toastify';
 import { IUser, IUserFormValues } from '../models/user';
 import { IProfile, IPhoto } from '../models/profile';
+import { ISingUp, ISingUpFormValues } from '../models/signup';
+import { IPaymentFormValues } from '../models/payment';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -106,8 +108,12 @@ const User = {
   current: (): Promise<IUser> => requests.get('/user'),
   login: (user: IUserFormValues): Promise<IUser> =>
     requests.post(`/user/login`, user),
+  singup: (signupEmail: ISingUpFormValues) : Promise<ISingUp> => 
+    requests.post(`/user/signup`, signupEmail),
   register: (user: IUserFormValues): Promise<IUser> =>
     requests.post(`/user/register`, user),
+  payment: (payment: IPaymentFormValues) : Promise<IUser> =>
+    requests.post('/user/payment', payment),
   fbLogin: (accessToken: string) =>
     requests.post(`/user/facebook`, {accessToken}),
   refreshToken: (token: string, refreshToken: string) => {

@@ -47,7 +47,15 @@ namespace Application.User
                     Token = _jwtGenerator.CreateToken(user),
                     RefreshToken = user.RefreshToken,
                     Username = user.UserName,
-                    Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
+                    Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                    CustomerId = user.CustomerId,
+                    PriceId = user.PriceId,
+                    IsAdmin = user.IsAdmin,
+                    IsPaid = user.IsPaid,
+                    InvoiceId = "",
+                    PaymentMethodId = "",
+                    ClientSecret = "",
+                    Subscription = user.Subscribtion
                 };
             }
         }

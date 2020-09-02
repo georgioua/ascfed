@@ -19,6 +19,8 @@ import LoadingComponent from './LoadingComponent';
 import ModalContainer from '../common/modals/ModalContainer';
 import ProfilePage from '../../features/profiles/ProfilePage';
 import PrivateRoute from './PrivateRoute';
+import Prices from '../../features/regitration/Prices';
+import RegisterForm from '../../features/user/RegisterForm';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -39,6 +41,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
     <Fragment>
       <ModalContainer />
       <ToastContainer position='bottom-right' />
+      <Route exact path='/prices' component={Prices} />
       <Route exact path='/' component={HomePage} />
       <Route
         path={'/(.+)'}
@@ -47,6 +50,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
             <NavBar />
             <Container style={{ marginTop: '7em' }}>
               <Switch>
+                <PrivateRoute exact path="/register" component={RegisterForm} />
                 <PrivateRoute exact path='/activities' component={ActivityDashboard} />
                 <PrivateRoute path='/activities/:id' component={ActivityDetails} />
                 <PrivateRoute
@@ -55,6 +59,7 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
                   component={ActivityForm}
                 />
                 <PrivateRoute path='/profile/:username' component={ProfilePage} />
+                
                 <Route component={NotFound} />
               </Switch>
             </Container>

@@ -34,7 +34,20 @@ namespace API.Controllers
         {
             return await Mediator.Send(command);
         }
-
+        [AllowAnonymous]
+        [HttpPost("signup")]
+        public async Task<ActionResult<Customer>> SignUp(SignUp.Command command)
+        {
+            var customer = await Mediator.Send(command);
+            return customer;
+        }
+        [AllowAnonymous]
+        [HttpPost("payment")]
+        public async Task<ActionResult<User>> Payment(Payment.Command command)
+        {
+            var user = await Mediator.Send(command);
+            return user;
+        }
         [HttpGet]
         public async Task<ActionResult<User>> CurrentUser()
         {

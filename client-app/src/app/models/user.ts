@@ -1,5 +1,3 @@
-import { IAddress } from "./address";
-import { ICapoeiraInformation } from "./capoeiraInformation";
 
 export interface IUser {
     username: string;
@@ -7,11 +5,18 @@ export interface IUser {
     token: string;
     refreshToken: string;
     image?: string;
-    address: IAddress;
-    info?: ICapoeiraInformation;
+    priceId?: string;
+    customerId?: string;
     isAdmin : boolean;
     isPaid: boolean;
-
+    isRegistered: boolean;
+    tempPassword: string;
+    subscriptionStatus: string;
+    paymentIntentStatus: string;
+    invoiceId: string;
+    paymentMethodId: string;
+    clientSecret: string;
+    subscription: string;
 }
 
 export interface IUserFormValues {
@@ -22,13 +27,13 @@ export interface IUserFormValues {
     groupName?: string;
     level?: string;
     trainingYears?: string;
-    dob: Date;
+    dob?: Date;
     addressLine1: string;
     addressline2?: string;
     city: string;
     state: string;
     postcode: string;
     country: string;
-    priceId: string;
     customerId?: string;
+    phone: string;
 }

@@ -19,6 +19,7 @@ namespace Application.User
     {
         public class Command : IRequest<User>
         {
+            public string CustomerId { get; set; }
             public string DisplayName { get; set; }
             public string Username { get; set; }
             public string Email { get; set; }
@@ -33,8 +34,9 @@ namespace Application.User
             public string GroupName { get; set; }
             public string Level { get; set; }
             public string TrainingYears { get; set; }
-            public string PriceId { get; set; }
-            public string CustomerId { get; set; }
+            public string Phone { get; set; }
+            public string OldPassword { get; set; }
+ 
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -45,6 +47,7 @@ namespace Application.User
                 RuleFor(x => x.Username).NotEmpty();
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 RuleFor(x => x.Password).Password();
+
             }
         }
 
@@ -64,34 +67,29 @@ namespace Application.User
 
             public async Task<User> Handle(Command request, CancellationToken cancellationToken)
             {
-                if (await _context.Users.Where(x => x.Email == request.Email).AnyAsync())
-                    throw new RestException(HttpStatusCode.BadRequest, new {Email = "Email already exists"});
 
-                if (await _context.Users.Where(x => x.UserName == request.Username).AnyAsync())
-                    throw new RestException(HttpStatusCode.BadRequest, new {Username = "Username already exists"});
 
-                
-                var user = new AppUser
-                {
-                    DisplayName = request.DisplayName,
-                    Email = request.Email,
-                    UserName = request.Username,
-                    RefreshToken = _jwtGenerator.GenerateRefreshToken(),
-                    RefreshTokenExpiry = DateTime.Now.AddDays(30),
-                    IsPaid = false,
-                    IsAdmin = false,
-                    AddressLine1 = request.AddressLine1,
-                    AddressLine2 = request.AddressLine2,
-                    City = request.City,
-                    State = request.State,
-                    Postcode = request.Postcode,
-                };
+                var user = await _context.Users.Where(x => x.CustomerId == request.CustomerId).FirstAsync();
 
-                var customerId =  _paymentService.CreateCustomer(user);
+                user.DisplayName = request.DisplayName;
+                user.Email = request.Email;
+                user.UserName = request.Email;
+                user.AddressLine1 = request.AddressLine1;
+                user.AddressLine2 = request.AddressLine2;
+                user.City = request.City;
+                user.State = request.State;
+                user.Postcode = request.Postcode;
+                user.Country = request.Country;
+                user.IsRegistered = true;
+                user.Phone = request.Phone;
+                user.DBO = request.DBO;
+                user.DBO = request.DBO;
+                _context.Users.Update(user);
 
-                user.CustomerId = customerId;
 
-                var result = await _userManager.CreateAsync(user, request.Password);
+               await _paymentService.UpdateCustomer(user);
+
+                var result = await _userManager.ChangePasswordAsync(user, user.TempPassword, request.Password);
 
                 if (result.Succeeded)
                 {
@@ -102,12 +100,20 @@ namespace Application.User
                         RefreshToken = user.RefreshToken,
                         Username = user.UserName,
                         Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                        
-                         
+                        CustomerId = user.CustomerId,
+                        PriceId = user.PriceId,
+                        Email = user.Email,
+                        IsAdmin = user.IsAdmin,
+                        IsPaid = user.IsPaid,
+                        IsRegistered = true,
+                        InvoiceId = "",
+                        PaymentMethodId = "",
+                        ClientSecret = "",
+                        Subscription = user.Subscribtion
                     };
                 }
                 
-                throw new Exception("Problem creating user");
+                throw new Exception("Problem updating user");
             }
         }
     }

@@ -31,25 +31,25 @@ namespace Application.User
 
                 return new User
                 {
+
                     DisplayName = user.DisplayName,
-                    Username = user.UserName,
                     Token = _jwtGenerator.CreateToken(user),
                     RefreshToken = user.RefreshToken,
+                    Username = user.UserName,
                     Image = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
-                    IsAdmin = user.IsAdmin,
-                    DBO = user.DBO,
-                    AddressLine1 = user.AddressLine1,
-                    AddressLine2 = user.AddressLine2,
                     CustomerId = user.CustomerId,
-                    City = user.City,
-                    Country = user.Country,
-                    Email = user.Email,
-                    Subscribtion = user.Subscribtion,
                     PriceId = user.PriceId,
-                    GroupName = user.GroupName,
-                    TrainingYears = user.TrainingYears,
-                    Level = user.Level,
-                    State = user.State
+                    Email = user.Email,
+                    IsAdmin = false,
+                    IsPaid = user.IsPaid,
+                    IsRegistered = user.IsRegistered,
+                    TempPassword = user.TempPassword,
+                    SubscriptionStatus = user.IsPaid ? "active" : "",
+                    PaymentIntentStatus = user.IsPaid ? "succeeded" : "",
+                    InvoiceId = "",
+                    PaymentMethodId = "",
+                    ClientSecret = "",
+                    Subscription = user.Subscribtion,
 
                 };
             }

@@ -1,5 +1,4 @@
 using System;
-
 namespace Application.User
 {
     public class User
@@ -10,25 +9,20 @@ namespace Application.User
         public string Username { get; set; }
         public string Image { get; set; }
         public string Email { get; set; }
-        public string AddressLine1 { get; set; }
-        public string AddressLine2 { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Postcode { get; set; }
-        public string Country { get; set; }
-        public DateTime DBO { get; set; }
-        public string GroupName { get; set; }
-        public string Level { get; set; }
-        public int TrainingYears { get; set; }
         public string PriceId { get; set; }
         public string CustomerId { get; set; }
-        public string Subscribtion { get; set; }
-        public DateTime JoiningDate { get; set; }
-        public DateTime ExpiryDate { get; set; }
-        public DateTime LastPayment { get; set; }
-        public string InvoiceId { get; set; }
-        public string SessionId { get; set; }
         public bool IsAdmin { get; set; }
-     
+        public bool IsPaid { get; set; }
+        public bool IsRegistered { get; set; }
+        public string TempPassword { get; set; }
+        public string SubscriptionStatus { get; set; }
+        public string PaymentIntentStatus { get; set; }
+        public string InvoiceId { get; set; }
+        public string PaymentMethodId { get; set; }
+        public string ClientSecret { get; set; }
+        public string Subscription { get; set; }
+        public string AmountPaid { get; set; }
+        public string Period { get; set; }
+
     }
 }

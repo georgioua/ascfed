@@ -10,15 +10,26 @@ import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
 import ScrollToTop from './app/layout/ScrollToTop';
 import dateFnsLocalizer from 'react-widgets-date-fns';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise =  loadStripe("pk_test_51H961DIHls7iQOHV2FLwRuMHdUvxVstlhJTavVSIxu088cnJy2SEiSbA3jjn8PHFlJbSuDA98c2nja5xgZrIho9R00aceLsEK0");
 
 dateFnsLocalizer();
 
 export const history = createBrowserHistory();
 
 ReactDOM.render(
+  
   <Router history={history}>
     <ScrollToTop>
-      <App />
+      <Elements stripe={stripePromise}>
+        <App>
+        
+        </App>
+      </Elements>
     </ScrollToTop>
   </Router>,
   document.getElementById('root')

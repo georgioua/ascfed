@@ -21,6 +21,7 @@ import ProfilePage from '../../features/profiles/ProfilePage';
 import PrivateRoute from './PrivateRoute';
 import Prices from '../../features/regitration/Prices';
 import RegisterForm from '../../features/user/RegisterForm';
+import RegistrationSteps from '../../features/regitration/RegistrationSteps';
 
 const App: React.FC<RouteComponentProps> = ({ location }) => {
   const rootStore = useContext(RootStoreContext);
@@ -41,8 +42,12 @@ const App: React.FC<RouteComponentProps> = ({ location }) => {
     <Fragment>
       <ModalContainer />
       <ToastContainer position='bottom-right' />
-      <Route exact path='/prices' component={Prices} />
-      <Route exact path='/' component={HomePage} />
+   
+      <Switch>
+        <Route exact path='/prices' component={Prices} />
+        <Route exact path='/registration' component={RegistrationSteps} />
+        <Route exact path='/' component={RegistrationSteps} />
+      </Switch>
       <Route
         path={'/(.+)'}
         render={() => (

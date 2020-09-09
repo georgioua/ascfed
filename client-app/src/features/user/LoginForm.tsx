@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { Form, Button, Header, Divider } from 'semantic-ui-react';
+import { Form, Button, Header, Divider, Image} from 'semantic-ui-react';
 import TextInput from '../../app/common/form/TextInput';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import { IUserFormValues } from '../../app/models/user';
@@ -17,8 +17,9 @@ const validate = combineValidators({
 
 const LoginForm = () => {
   const rootStore = useContext(RootStoreContext);
-  const { login, fbLogin, loading } = rootStore.userStore;
+  const { login, setRegistrationStep } = rootStore.userStore;
   return (
+
     <FinalForm
       onSubmit={(values: IUserFormValues) =>
         login(values).catch(error => ({
@@ -35,6 +36,11 @@ const LoginForm = () => {
         dirtySinceLastSubmit
       }) => (
         <Form onSubmit={handleSubmit} error>
+          <Header as='h1'>
+          <Image size='massive' src='/assets/ASCF_logo.png' alt='Australian Sports Capoeira Federation'
+           style={{ marginBottom: 0 }}
+          />
+          </Header>
           <Header
             as='h2'
             content='Login to Australian Sports Capoeira Federation'
@@ -62,7 +68,9 @@ const LoginForm = () => {
             fluid
           />
           <Divider horizontal>Or</Divider>
-          <SocialLogin loading={loading} fbCallback={fbLogin} />
+          <Button color='teal'
+            content='Sign Up' fluid onClick={() => setRegistrationStep(1)} />
+         
         </Form>
       )}
     />

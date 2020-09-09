@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Form as FinalForm, Field } from 'react-final-form';
-import { Form, Button, Header } from 'semantic-ui-react';
+import { Form, Button, Header, Image} from 'semantic-ui-react';
 import TextInput from '../../app/common/form/TextInput';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import {ISingUpFormValues} from '../../app/models/signup';
@@ -32,6 +32,11 @@ const SingUp = () => {
         dirtySinceLastSubmit
       }) => (
         <Form onSubmit={handleSubmit} error>
+          <Header as='h1'>
+          <Image size='massive' src='/assets/ASCF_logo.png' alt='Australian Sports Capoeira Federation'
+           style={{ marginBottom: 0 }}
+          />
+          </Header>
           <Header
             as='h2'
             content='SignUp to Australian Sports Capoeira Federation'

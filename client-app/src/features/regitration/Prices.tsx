@@ -6,7 +6,6 @@ import SignUp from '../regitration/SingUp';
 import MembershipPayment from './MembershipPayment';
 
 const Prices = () => {
-  const token = window.localStorage.getItem('jwt');
   const rootStore = useContext(RootStoreContext);
   const { user, isLoggedIn } = rootStore.userStore;
   const {openModal} = rootStore.modalStore;
@@ -271,7 +270,7 @@ const Prices = () => {
                   </Table.Footer>
                 </Table>
             </Fragment>
-        ) : isLoggedIn && user && token ? (
+        ) : isLoggedIn && user ? (
             <Fragment>
               <Header as='h2' inverted content={`Welcome back ${user.displayName}`} />
               <Button as={Link} to='/activities' size='huge' inverted>

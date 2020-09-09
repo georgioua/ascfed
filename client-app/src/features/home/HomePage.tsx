@@ -3,8 +3,8 @@ import { Container, Segment, Header, Button, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { RootStoreContext } from '../../app/stores/rootStore';
 import LoginForm from '../user/LoginForm';
-import RegisterForm from '../user/RegisterForm';
 import SignUp from '../regitration/SingUp';
+import RegistrationSteps from '../regitration/RegistrationSteps';
 
 const HomePage = () => {
   const token = window.localStorage.getItem('jwt');
@@ -35,7 +35,7 @@ const HomePage = () => {
           <Button onClick={() => openModal(<LoginForm />)} size='huge' inverted>
             Login
           </Button>
-          <Button onClick={() => openModal(<RegisterForm />)} size='huge' inverted>
+          <Button as={Link} to='/registration/1'  size='huge' inverted>
             Register
           </Button>
           <Button onClick={() => openModal(<SignUp />)} size='huge' inverted>

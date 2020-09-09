@@ -1,10 +1,10 @@
-import { observable, computed, action, runInAction } from 'mobx';
+import { observable, computed, action, runInAction} from 'mobx';
 import { IUser, IUserFormValues } from '../models/user';
 import {ISingUpFormValues , ISingUp } from '../models/signup';
 import agent from '../api/agent';
 import { RootStore } from './rootStore';
 import { history } from '../..';
-import { IPaymentFormValues } from '../models/payment';
+import { IPaymentFormValues , IPayment} from '../models/payment';
 //import { isPlainObject } from 'mobx-react-lite/dist/utils';
 
 
@@ -17,9 +17,22 @@ export default class UserStore {
   @observable user: IUser | null = null;
   @observable loading = false;
   @observable customer: ISingUp | null = null;
+  @observable registrationStep: number | null = 0;
+  @observable membershipSelected : IPayment | null = null;
 
   @computed get isLoggedIn() {
     return !!this.user;
+  }
+
+  @action setRegistrationStep = (step: number | null) => {
+   this.registrationStep = step;
+   history.push('/');
+  }
+
+  @action setMembership = (values : IPayment | null) => {
+    this.membershipSelected = values;
+    this.setRegistrationStep(4);
+    history.push('/');
   }
 
   @action login = async (values: IUserFormValues) => {
@@ -50,10 +63,13 @@ export default class UserStore {
   }
   @action singnup = async (values: ISingUpFormValues) => {
     const customer = await agent.User.singup(values);
-    //console.log(customer);
+    console.log(customer);
     this.rootStore.commonStore.setCustomerId(customer.customerId);
-    this.rootStore.modalStore.closeModal();
-    history.push('/prices')
+    runInAction(() => {
+      this.registrationStep = 2;
+    });
+    console.log(this.registrationStep);
+    history.push('/')
   } 
 
   @action payment = async (values: IPaymentFormValues) => {
@@ -65,7 +81,8 @@ export default class UserStore {
       runInAction(() => {
         this.user = user;
       });
-      history.push('/register')
+      this.setRegistrationStep(5);
+      history.push('/');
   } 
 
   @action getUser = async () => {
